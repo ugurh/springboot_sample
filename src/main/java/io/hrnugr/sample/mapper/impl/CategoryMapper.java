@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 public class CategoryMapper implements BaseMapper {
 
     @Override
-    public CategoryDto toDto(Category model) {
+    public CategoryDto toDto(Object obj) {
 
-        if (Objects.isNull(model)) {
+        if (Objects.isNull(obj)) {
             return null;
         }
-
+        Category model = (Category) obj;
         return CategoryDto.builder()
                 .categoryName(model.getCategoryName())
                 .description(model.getDescription())
@@ -28,11 +28,13 @@ public class CategoryMapper implements BaseMapper {
     }
 
     @Override
-    public Category toModel(CategoryDto dto) {
+    public Category toEntity(Object obj) {
 
-        if (Objects.isNull(dto)) {
+        if (Objects.isNull(obj)) {
             return null;
         }
+
+        CategoryDto dto = (CategoryDto) obj;
 
         return Category.builder()
                 .categoryName(dto.getCategoryName())
@@ -42,10 +44,11 @@ public class CategoryMapper implements BaseMapper {
     }
 
     @Override
-    public List<CategoryDto> toListDto(List<Category> categories) {
-        if (categories.isEmpty())
+    public List<CategoryDto> toListDto(List list) {
+        if (list.isEmpty())
             return Collections.emptyList();
 
-        return categories.stream().map(this::toDto).collect(Collectors.toList());
+        return (List<CategoryDto>) list.stream().map(this::toDto).collect(Collectors.toList());
     }
+
 }

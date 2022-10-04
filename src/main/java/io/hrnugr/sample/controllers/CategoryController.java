@@ -41,7 +41,7 @@ public class CategoryController {
     @PostMapping("/create")
     public ResponseEntity<ApiResponseDto> createCategory(@Valid @RequestBody CategoryDto categoryDto) {
 
-        Category category = categoryMapper.toModel(categoryDto);
+        Category category = categoryMapper.toEntity(categoryDto);
 
         Category categoryInDB = categoryService.readCategory(category.getCategoryName());
 
@@ -75,7 +75,7 @@ public class CategoryController {
         if (Objects.isNull(categoryService.get(categoryId)))
             return new ResponseEntity<>(new ApiResponseDto(false, "category does not exist"), HttpStatus.NOT_FOUND);
 
-        Category category = categoryMapper.toModel(categoryDto);
+        Category category = categoryMapper.toEntity(categoryDto);
         categoryService.update(categoryId, category);
 
         return new ResponseEntity<>(new ApiResponseDto(true, "updated the category"), HttpStatus.OK);
