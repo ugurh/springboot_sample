@@ -12,12 +12,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -35,8 +33,8 @@ public class CategoryController {
     @Operation(summary = "Create new category")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "409", description = "Category already exists",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CategoryDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CategoryDto.class))}),
             @ApiResponse(responseCode = "201", description = "Category created",
                     content = @Content)
     })
@@ -53,5 +51,33 @@ public class CategoryController {
 
         categoryService.createCategory(category);
         return new ResponseEntity<>(new ApiResponseDto(true, "created the category"), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<CategoryDto>> getCategories() {
+        List<Category> categories = categoryService.listCategories();
+
+        List<CategoryDto> body = categoryMapper.toListDto(categories);
+        return new ResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Update category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Category updated",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CategoryDto.class))}),
+            @ApiResponse(responseCode = "404", description = "Category doesn't exist",
+                    content = @Content)
+    })
+    @PostMapping("/update/{categoryId}")
+    public ResponseEntity<ApiResponseDto> update(@PathVariable("categoryId") Long categoryId, @Valid @RequestBody CategoryDto categoryDto) {
+
+        if (Objects.isNull(categoryService.get(categoryId)))
+            return new ResponseEntity<>(new ApiResponseDto(false, "category does not exist"), HttpStatus.NOT_FOUND);
+
+        Category category = categoryMapper.toModel(categoryDto);
+        categoryService.update(categoryId, category);
+
+        return new ResponseEntity<>(new ApiResponseDto(true, "updated the category"), HttpStatus.OK);
     }
 }

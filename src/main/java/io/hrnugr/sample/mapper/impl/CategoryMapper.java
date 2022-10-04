@@ -5,7 +5,10 @@ import io.hrnugr.sample.mapper.BaseMapper;
 import io.hrnugr.sample.model.Category;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Configuration
 public class CategoryMapper implements BaseMapper {
@@ -36,5 +39,13 @@ public class CategoryMapper implements BaseMapper {
                 .description(dto.getDescription())
                 .imageUrl(dto.getImageUrl())
                 .build();
+    }
+
+    @Override
+    public List<CategoryDto> toListDto(List<Category> categories) {
+        if (categories.isEmpty())
+            return Collections.emptyList();
+
+        return categories.stream().map(this::toDto).collect(Collectors.toList());
     }
 }

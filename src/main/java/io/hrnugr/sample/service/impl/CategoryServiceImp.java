@@ -5,6 +5,8 @@ import io.hrnugr.sample.repository.CategoryRepository;
 import io.hrnugr.sample.service.CategoryService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImp implements CategoryService {
 
@@ -21,5 +23,24 @@ public class CategoryServiceImp implements CategoryService {
 
     public void createCategory(Category category) {
         categoryRepository.save(category);
+    }
+
+    @Override
+    public List<Category> listCategories() {
+        return categoryRepository.findAll();
+    }
+
+    @Override
+    public Category get(Long categoryId) {
+        return categoryRepository.findById(categoryId).orElse(null);
+    }
+
+    @Override
+    public void update(Long categoryId, Category category) {
+        Category catInDB = categoryRepository.findById(categoryId).orElseThrow();
+        catInDB.setCategoryName(category.getCategoryName());
+        catInDB.setDescription(category.getDescription());
+        catInDB.setImageUrl(category.getImageUrl());
+        categoryRepository.save(catInDB);
     }
 }
