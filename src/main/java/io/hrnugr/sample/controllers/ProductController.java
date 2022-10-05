@@ -15,11 +15,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -56,5 +55,23 @@ public class ProductController {
         Product product = productMapper.toEntity(productDto);
         productService.create(product, category);
         return new ResponseEntity<>(new ApiResponseDto(true, "Product has been added"), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<ProductDto>> getProducts() {
+        List<Product> products = productService.listProducts();
+        List<ProductDto> body = productMapper.toListDto(products);
+        return new ResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    @PostMapping("/update/{productId}")
+    public ResponseEntity<ApiResponseDto> updateProduct(@PathVariable("productId") Long productId,
+                                                     @RequestBody @Valid ProductDto productDto) {
+        Category category = categoryService.get(productDto.getCategoryId());
+        if (Objects.isNull(category)) {
+            return new ResponseEntity<>(new ApiResponseDto(false, "category is invalid"), HttpStatus.CONFLICT);
+        }
+        productService.updateProduct(productId, productDto, category);
+        return new ResponseEntity<>(new ApiResponseDto(true, "Product has been updated"), HttpStatus.OK);
     }
 }

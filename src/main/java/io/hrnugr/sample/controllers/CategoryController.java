@@ -65,7 +65,7 @@ public class CategoryController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Category updated",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CategoryDto.class))}),
+                            schema = @Schema(implementation = ApiResponseDto.class))}),
             @ApiResponse(responseCode = "404", description = "Category doesn't exist",
                     content = @Content)
     })
