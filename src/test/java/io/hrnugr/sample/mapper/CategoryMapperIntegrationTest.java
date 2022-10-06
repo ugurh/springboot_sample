@@ -1,8 +1,8 @@
 package io.hrnugr.sample.mapper;
 
 import io.hrnugr.sample.dto.request.CategoryDto;
+import io.hrnugr.sample.entity.Category;
 import io.hrnugr.sample.mapper.impl.CategoryMapper;
-import io.hrnugr.sample.model.Category;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CategoryMapperIntegrationTest {
+class CategoryMapperIntegrationTest {
 
     @Autowired
     private CategoryMapper categoryMapper;
 
     @Test
-    public void givenModelToDto_whenMaps_thenCorrect() {
+    void givenModelToDto_whenMaps_thenCorrect() {
         Category model = Category.builder()
                 .categoryName("CAT01")
                 .description("CAT01 Description")
@@ -35,7 +35,7 @@ public class CategoryMapperIntegrationTest {
     }
 
     @Test
-    public void givenDtoToModel_whenMaps_thenCorrect() {
+    void givenDtoToModel_whenMaps_thenCorrect() {
         CategoryDto dto = CategoryDto.builder()
                 .categoryName("CAT01")
                 .description("CAT01 Description")

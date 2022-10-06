@@ -1,6 +1,6 @@
 package io.hrnugr.sample.service.impl;
 
-import io.hrnugr.sample.model.Category;
+import io.hrnugr.sample.entity.Category;
 import io.hrnugr.sample.repository.CategoryRepository;
 import io.hrnugr.sample.service.CategoryService;
 import org.springframework.stereotype.Service;

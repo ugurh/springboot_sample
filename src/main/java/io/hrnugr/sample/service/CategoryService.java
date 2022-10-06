@@ -1,7 +1,7 @@
 package io.hrnugr.sample.service;
 
 
-import io.hrnugr.sample.model.Category;
+import io.hrnugr.sample.entity.Category;
 
 import java.util.List;
 

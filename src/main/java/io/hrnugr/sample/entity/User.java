@@ -1,4 +1,4 @@
-package io.hrnugr.sample.model;
+package io.hrnugr.sample.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

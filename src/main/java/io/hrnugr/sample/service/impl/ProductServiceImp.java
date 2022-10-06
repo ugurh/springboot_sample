@@ -1,13 +1,15 @@
 package io.hrnugr.sample.service.impl;
 
 import io.hrnugr.sample.dto.request.ProductDto;
-import io.hrnugr.sample.model.Category;
-import io.hrnugr.sample.model.Product;
+import io.hrnugr.sample.entity.Category;
+import io.hrnugr.sample.entity.Product;
+import io.hrnugr.sample.exceptions.CustomException;
 import io.hrnugr.sample.repository.ProductRepository;
 import io.hrnugr.sample.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -31,11 +33,11 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public void updateProduct(Long productId, ProductDto productDto, Category category) {
+    public void updateProduct(Long productId, ProductDto productDto, Category category) throws CustomException {
         Optional<Product> productInDB = productRepository.findById(productId);
 
         if (productInDB.isEmpty())
-            throw new RuntimeException("Product can not exist");
+            throw new CustomException("Product can not exist");
 
         Product product = productInDB.get();
         product.setName(productDto.getName());
@@ -45,5 +47,15 @@ public class ProductServiceImp implements ProductService {
         product.setCategory(category);
 
         productRepository.save(product);
+    }
+
+    @Override
+    public Product getById(Long id) throws CustomException {
+        Product product = productRepository.findById(id).orElse(null);
+
+        if (Objects.isNull(product))
+            throw new CustomException("Product does not exist");
+
+        return product;
     }
 }

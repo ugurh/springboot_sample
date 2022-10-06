@@ -2,7 +2,7 @@ package io.hrnugr.sample.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.hrnugr.sample.dto.request.CategoryDto;
-import io.hrnugr.sample.model.Category;
+import io.hrnugr.sample.entity.Category;
 import io.hrnugr.sample.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CategoryControllerIntegrationTest {
+class CategoryControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;

@@ -1,6 +1,6 @@
 package io.hrnugr.sample.repository;
 
-import io.hrnugr.sample.model.Product;
+import io.hrnugr.sample.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

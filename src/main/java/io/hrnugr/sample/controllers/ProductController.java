@@ -3,9 +3,10 @@ package io.hrnugr.sample.controllers;
 import io.hrnugr.sample.dto.request.CategoryDto;
 import io.hrnugr.sample.dto.request.ProductDto;
 import io.hrnugr.sample.dto.response.ApiResponseDto;
+import io.hrnugr.sample.entity.Category;
+import io.hrnugr.sample.entity.Product;
+import io.hrnugr.sample.exceptions.CustomException;
 import io.hrnugr.sample.mapper.impl.ProductMapper;
-import io.hrnugr.sample.model.Category;
-import io.hrnugr.sample.model.Product;
 import io.hrnugr.sample.service.CategoryService;
 import io.hrnugr.sample.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,7 +67,7 @@ public class ProductController {
 
     @PostMapping("/update/{productId}")
     public ResponseEntity<ApiResponseDto> updateProduct(@PathVariable("productId") Long productId,
-                                                     @RequestBody @Valid ProductDto productDto) {
+                                                        @RequestBody @Valid ProductDto productDto) throws CustomException {
         Category category = categoryService.get(productDto.getCategoryId());
         if (Objects.isNull(category)) {
             return new ResponseEntity<>(new ApiResponseDto(false, "category is invalid"), HttpStatus.CONFLICT);

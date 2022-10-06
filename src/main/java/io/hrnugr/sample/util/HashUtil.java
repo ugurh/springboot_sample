@@ -1,5 +1,6 @@
 package io.hrnugr.sample.util;
 
+import io.hrnugr.sample.exceptions.CustomException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.bind.DatatypeConverter;
@@ -8,8 +9,10 @@ import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 public class HashUtil {
+    private HashUtil() {
+    }
 
-    public static String encryptedPassword(String password) {
+    public static String encryptedPassword(String password) throws CustomException {
         MessageDigest md;
         try {
             md = MessageDigest.getInstance("MD5");
@@ -17,9 +20,9 @@ public class HashUtil {
             byte[] digest = md.digest();
             return DatatypeConverter.printHexBinary(digest).toUpperCase();
         } catch (NoSuchAlgorithmException e) {
-            log.error("hashing password failed {}", e.getMessage());
-            throw new RuntimeException(e);
+            log.error("Hashing password failed {}", e.getMessage());
+            throw new CustomException(e.getMessage());
         }
-
     }
+
 }

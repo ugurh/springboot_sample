@@ -1,14 +1,13 @@
 package io.hrnugr.sample.mapper.impl;
 
 import io.hrnugr.sample.dto.request.CategoryDto;
+import io.hrnugr.sample.entity.Category;
 import io.hrnugr.sample.mapper.BaseMapper;
-import io.hrnugr.sample.model.Category;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Configuration
 public class CategoryMapper implements BaseMapper {
@@ -48,7 +47,7 @@ public class CategoryMapper implements BaseMapper {
         if (list.isEmpty())
             return Collections.emptyList();
 
-        return (List<CategoryDto>) list.stream().map(this::toDto).collect(Collectors.toList());
+        return (List<CategoryDto>) list.stream().map(this::toDto).toList();
     }
 
 }

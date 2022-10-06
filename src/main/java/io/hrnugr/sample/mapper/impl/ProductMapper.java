@@ -1,19 +1,18 @@
 package io.hrnugr.sample.mapper.impl;
 
 import io.hrnugr.sample.dto.request.ProductDto;
+import io.hrnugr.sample.entity.Product;
 import io.hrnugr.sample.mapper.BaseMapper;
-import io.hrnugr.sample.model.Product;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Configuration
 public class ProductMapper implements BaseMapper {
     @Override
-    public  ProductDto toDto(Object obj) {
+    public ProductDto toDto(Object obj) {
 
         if (Objects.isNull(obj)) {
             return null;
@@ -21,10 +20,12 @@ public class ProductMapper implements BaseMapper {
 
         Product model = (Product) obj;
         return ProductDto.builder()
+                .id(model.getId())
                 .name(model.getName())
                 .description(model.getDescription())
                 .imageURL(model.getImageURL())
                 .price(model.getPrice())
+                .categoryId(model.getCategory().getId())
                 .build();
     }
 
@@ -37,17 +38,19 @@ public class ProductMapper implements BaseMapper {
         ProductDto dto = (ProductDto) obj;
 
         return Product.builder()
+                .id(dto.getId())
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .imageURL(dto.getImageURL())
                 .price(dto.getPrice())
                 .build();
     }
+
     @Override
     public List<ProductDto> toListDto(List list) {
-            if (list.isEmpty())
-                return Collections.emptyList();
+        if (list.isEmpty())
+            return Collections.emptyList();
 
-            return (List<ProductDto>) list.stream().map(this::toDto).collect(Collectors.toList());
+        return (List<ProductDto>) list.stream().map(this::toDto).toList();
     }
 }

@@ -1,8 +1,8 @@
 package io.hrnugr.sample.service.impl;
 
+import io.hrnugr.sample.entity.AuthToken;
+import io.hrnugr.sample.entity.User;
 import io.hrnugr.sample.exceptions.CustomException;
-import io.hrnugr.sample.model.AuthToken;
-import io.hrnugr.sample.model.User;
 import io.hrnugr.sample.repository.AuthTokenRepository;
 import io.hrnugr.sample.service.AuthTokenService;
 import io.hrnugr.sample.util.Messages;
@@ -26,7 +26,7 @@ public class AuthServiceImp implements AuthTokenService {
 
     @Override
     public AuthToken getToken(User user) {
-       return authTokenRepository.findAuthTokenByUser(user);
+        return authTokenRepository.findAuthTokenByUser(user);
     }
 
     @Override
@@ -43,7 +43,15 @@ public class AuthServiceImp implements AuthTokenService {
     }
 
     @Override
-    public void authenticate(String token) {
+    public void authenticate(String token) throws CustomException {
+
+        if (Objects.isNull(token))
+            throw new CustomException(Messages.EMPTY_AUTH_TOKEN);
+
+        AuthToken authToken = authTokenRepository.findAuthTokenByToken(token);
+
+        if (Objects.isNull(authToken))
+            throw new CustomException(Messages.AUTH_TOKEN_NOT_PRESENT);
 
     }
 }

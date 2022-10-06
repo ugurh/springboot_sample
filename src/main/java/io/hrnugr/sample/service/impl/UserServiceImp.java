@@ -4,10 +4,10 @@ import io.hrnugr.sample.dto.request.SignInDto;
 import io.hrnugr.sample.dto.request.SignupDto;
 import io.hrnugr.sample.dto.response.SignInResponseDto;
 import io.hrnugr.sample.dto.response.SignUpResponseDto;
+import io.hrnugr.sample.entity.AuthToken;
+import io.hrnugr.sample.entity.User;
 import io.hrnugr.sample.exceptions.AuthFailException;
 import io.hrnugr.sample.exceptions.CustomException;
-import io.hrnugr.sample.model.AuthToken;
-import io.hrnugr.sample.model.User;
 import io.hrnugr.sample.repository.UserRepository;
 import io.hrnugr.sample.service.AuthTokenService;
 import io.hrnugr.sample.service.UserService;
@@ -65,15 +65,15 @@ public class UserServiceImp implements UserService {
             throw new CustomException(Messages.USER_NOT_PRESENT);
 
         String encryptedPassword = HashUtil.encryptedPassword(signInDto.getPassword());
-        if (!user.getPassword().equals(encryptedPassword)){
-            throw  new AuthFailException(Messages.WRONG_AUTH_VALUES);
+        if (!user.getPassword().equals(encryptedPassword)) {
+            throw new AuthFailException(Messages.WRONG_AUTH_VALUES);
         }
         AuthToken token = authTokenService.getToken(user);
 
-        if(Objects.isNull(token)) {
+        if (Objects.isNull(token)) {
             throw new CustomException(Messages.AUTH_TOKEN_NOT_VALID);
         }
 
-        return new SignInResponseDto ("success", token.getToken());
+        return new SignInResponseDto("success", token.getToken());
     }
 }

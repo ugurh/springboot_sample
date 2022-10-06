@@ -2,8 +2,8 @@ package io.hrnugr.sample.controllers;
 
 import io.hrnugr.sample.dto.request.CategoryDto;
 import io.hrnugr.sample.dto.response.ApiResponseDto;
+import io.hrnugr.sample.entity.Category;
 import io.hrnugr.sample.mapper.impl.CategoryMapper;
-import io.hrnugr.sample.model.Category;
 import io.hrnugr.sample.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

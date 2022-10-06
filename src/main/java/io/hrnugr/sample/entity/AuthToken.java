@@ -1,10 +1,12 @@
-package io.hrnugr.sample.model;
+package io.hrnugr.sample.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -24,7 +26,7 @@ public class AuthToken {
 
     @Column(name = "CREATED_DATE")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ", locale = "tr_TR")
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "USER_ID")
@@ -32,7 +34,7 @@ public class AuthToken {
 
     public AuthToken(User user) {
         this.user = user;
-        this.createdDate = new Date();
+        this.createdDate = LocalDateTime.now();
         this.token = UUID.randomUUID().toString();
     }
 
