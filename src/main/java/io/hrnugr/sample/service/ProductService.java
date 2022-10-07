@@ -4,6 +4,7 @@ import io.hrnugr.sample.dto.request.ProductDto;
 import io.hrnugr.sample.entity.Category;
 import io.hrnugr.sample.entity.Product;
 import io.hrnugr.sample.exceptions.CustomException;
+import io.hrnugr.sample.exceptions.ResourceNotExistException;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface ProductService {
 
     void updateProduct(Long productId, ProductDto productDto, Category category) throws CustomException;
 
-    Product getById(Long id) throws CustomException;
+    Product getById(Long id) throws CustomException, ResourceNotExistException;
 }

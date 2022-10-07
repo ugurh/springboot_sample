@@ -42,7 +42,7 @@ class CategoryMapperIntegrationTest {
                 .imageUrl("www.image.com/cat01")
                 .build();
 
-        Category model = categoryMapper.toModel(dto);
+        Category model = categoryMapper.toEntity(dto);
 
         assertEquals(dto.getCategoryName(), model.getCategoryName());
         assertEquals(dto.getDescription(), model.getDescription());

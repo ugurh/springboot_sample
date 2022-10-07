@@ -6,7 +6,9 @@ import io.hrnugr.sample.dto.response.ApiResponseDto;
 import io.hrnugr.sample.entity.Product;
 import io.hrnugr.sample.entity.User;
 import io.hrnugr.sample.entity.WishList;
+import io.hrnugr.sample.exceptions.AuthFailException;
 import io.hrnugr.sample.exceptions.CustomException;
+import io.hrnugr.sample.exceptions.ResourceNotExistException;
 import io.hrnugr.sample.mapper.impl.ProductMapper;
 import io.hrnugr.sample.service.AuthTokenService;
 import io.hrnugr.sample.service.ProductService;
@@ -36,7 +38,7 @@ public class WishListController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponseDto> create(@Valid @RequestBody WishListDto wishListDto, @RequestParam String token) throws CustomException {
+    public ResponseEntity<ApiResponseDto> create(@Valid @RequestBody WishListDto wishListDto, @RequestParam String token) throws CustomException, AuthFailException, ResourceNotExistException {
         authTokenService.authenticate(token);
         User user = authTokenService.getUser(token);
         Product product = productService.getById(wishListDto.getProductId());
@@ -48,7 +50,7 @@ public class WishListController {
     }
 
     @GetMapping("/list/{token}")
-    public ResponseEntity<List<ProductDto>> getWishList(@PathVariable("token") String token) throws CustomException {
+    public ResponseEntity<List<ProductDto>> getWishList(@PathVariable("token") String token) throws CustomException, AuthFailException, ResourceNotExistException {
         authTokenService.authenticate(token);
 
         User user = authTokenService.getUser(token);
