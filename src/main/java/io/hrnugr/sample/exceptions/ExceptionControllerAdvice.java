@@ -19,11 +19,18 @@ public class ExceptionControllerAdvice {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = Exception.class)
-    public final ResponseEntity<ApiResponseDto> handleCustomException(Exception exception) {
-        return new ResponseEntity<>(new ApiResponseDto(false, exception.getMessage()), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(value = ResourceNotExistException.class)
+    public final ResponseEntity<String> handleResourceNotExistException(ResourceNotExistException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    //MissingServletRequestParameterException
+    @ExceptionHandler(value = CartItemNotExistException.class)
+    public final ResponseEntity<String> handleCartItemNotExistException(CartItemNotExistException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
+    @ExceptionHandler(value = Exception.class)
+    public final ResponseEntity<ApiResponseDto> handleException(Exception exception) {
+        return new ResponseEntity<>(new ApiResponseDto(false, exception.getMessage()), HttpStatus.BAD_REQUEST);
+    }
 }

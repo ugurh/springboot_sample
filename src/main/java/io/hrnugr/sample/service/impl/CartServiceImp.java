@@ -6,6 +6,7 @@ import io.hrnugr.sample.dto.response.CartItemDto;
 import io.hrnugr.sample.entity.Cart;
 import io.hrnugr.sample.entity.Product;
 import io.hrnugr.sample.entity.User;
+import io.hrnugr.sample.exceptions.CartItemNotExistException;
 import io.hrnugr.sample.mapper.impl.ProductMapper;
 import io.hrnugr.sample.repository.CartRepository;
 import io.hrnugr.sample.service.CartService;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartServiceImp implements CartService {
@@ -63,4 +65,23 @@ public class CartServiceImp implements CartService {
                 .totalPrice(totalPrice)
                 .build();
     }
+
+    @Override
+    public void deleteCartItem(Long cartItemId, User user) throws CartItemNotExistException {
+
+        Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
+
+        if (optionalCart.isEmpty()) {
+            throw new CartItemNotExistException("cartItemId not valid");
+        }
+
+        Cart cart = optionalCart.get();
+
+        if (cart.getUser() != user) {
+            throw new CartItemNotExistException("cart item does not belong to user");
+        }
+
+        cartRepository.deleteById(cartItemId);
+    }
+
 }
