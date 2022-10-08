@@ -1,26 +1,20 @@
 package io.hrnugr.sample.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "CART")
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "CREATED_DATE")
-    private LocalDateTime createdDate;
+public class Cart extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID", nullable = false)
@@ -32,4 +26,16 @@ public class Cart {
 
     private int quantity;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Cart cart = (Cart) o;
+        return getId() != null && Objects.equals(getId(), cart.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

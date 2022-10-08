@@ -1,43 +1,46 @@
 package io.hrnugr.sample.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
-@Table(name = "WISH_LIST")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "WISHLIST")
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
-public class WishList {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+public class WishList extends BaseEntity {
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "USER_ID")
+    @ToString.Exclude
     private User user;
-
-    @Column(name = "CREATED_DATE")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ", locale = "tr_TR")
-    private LocalDateTime createdDate;
 
     @ManyToOne(targetEntity = Product.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_ID")
+    @ToString.Exclude
     private Product product;
 
     public WishList(User user, Product product) {
         this.user = user;
         this.product = product;
-        this.createdDate = LocalDateTime.now();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        WishList wishList = (WishList) o;
+        return getId() != null && Objects.equals(getId(), wishList.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

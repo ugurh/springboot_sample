@@ -1,6 +1,6 @@
 package io.hrnugr.sample.util;
 
-import io.hrnugr.sample.exceptions.CustomException;
+import io.hrnugr.sample.handler.exceptions.CustomException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.xml.bind.DatatypeConverter;

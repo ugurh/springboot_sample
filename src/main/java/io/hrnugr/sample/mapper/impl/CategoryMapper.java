@@ -18,8 +18,10 @@ public class CategoryMapper implements BaseMapper {
         if (Objects.isNull(obj)) {
             return null;
         }
+
         Category model = (Category) obj;
         return CategoryDto.builder()
+                .categoryId(model.getId())
                 .categoryName(model.getCategoryName())
                 .description(model.getDescription())
                 .imageUrl(model.getImageUrl())
@@ -47,7 +49,7 @@ public class CategoryMapper implements BaseMapper {
         if (list.isEmpty())
             return Collections.emptyList();
 
-        return (List<CategoryDto>) list.stream().map(this::toDto).toList();
+        return list.stream().map(this::toDto).toList();
     }
 
 }

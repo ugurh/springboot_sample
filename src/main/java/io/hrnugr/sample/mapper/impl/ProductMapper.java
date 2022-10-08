@@ -20,7 +20,7 @@ public class ProductMapper implements BaseMapper {
 
         Product model = (Product) obj;
         return ProductDto.builder()
-                .id(model.getId())
+                .productId(model.getId())
                 .name(model.getName())
                 .description(model.getDescription())
                 .imageURL(model.getImageURL())
@@ -37,13 +37,14 @@ public class ProductMapper implements BaseMapper {
 
         ProductDto dto = (ProductDto) obj;
 
-        return Product.builder()
-                .id(dto.getId())
-                .name(dto.getName())
-                .description(dto.getDescription())
-                .imageURL(dto.getImageURL())
-                .price(dto.getPrice())
-                .build();
+        Product product = new Product();
+        product.setId(dto.getProductId());
+        product.setName(dto.getName());
+        product.setDescription(dto.getDescription());
+        product.setImageURL(dto.getImageURL());
+        product.setPrice(dto.getPrice());
+
+        return product;
     }
 
     @Override
@@ -51,6 +52,6 @@ public class ProductMapper implements BaseMapper {
         if (list.isEmpty())
             return Collections.emptyList();
 
-        return (List<ProductDto>) list.stream().map(this::toDto).toList();
+        return list.stream().map(this::toDto).toList();
     }
 }

@@ -6,14 +6,13 @@ import io.hrnugr.sample.dto.response.CartItemDto;
 import io.hrnugr.sample.entity.Cart;
 import io.hrnugr.sample.entity.Product;
 import io.hrnugr.sample.entity.User;
-import io.hrnugr.sample.exceptions.CartItemNotExistException;
+import io.hrnugr.sample.handler.exceptions.CartItemNotExistException;
 import io.hrnugr.sample.mapper.impl.ProductMapper;
 import io.hrnugr.sample.repository.CartRepository;
 import io.hrnugr.sample.service.CartService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +35,6 @@ public class CartServiceImp implements CartService {
                 .product(product)
                 .user(user)
                 .quantity(addToCartDto.getQuantity())
-                .createdDate(LocalDateTime.now())
                 .build();
 
         cartRepository.save(cart);

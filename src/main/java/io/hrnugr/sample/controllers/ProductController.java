@@ -5,7 +5,7 @@ import io.hrnugr.sample.dto.request.ProductDto;
 import io.hrnugr.sample.dto.response.ApiResponseDto;
 import io.hrnugr.sample.entity.Category;
 import io.hrnugr.sample.entity.Product;
-import io.hrnugr.sample.exceptions.CustomException;
+import io.hrnugr.sample.handler.exceptions.CustomException;
 import io.hrnugr.sample.mapper.impl.ProductMapper;
 import io.hrnugr.sample.service.CategoryService;
 import io.hrnugr.sample.service.ProductService;

@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class CategoryDto {
 
+    private Long categoryId;
+
     @NotBlank(message = "Category name can not be empty")
     private @NotBlank String categoryName;
 

@@ -1,6 +1,10 @@
-package io.hrnugr.sample.exceptions;
+package io.hrnugr.sample.handler;
 
 import io.hrnugr.sample.dto.response.ApiResponseDto;
+import io.hrnugr.sample.handler.exceptions.AuthFailException;
+import io.hrnugr.sample.handler.exceptions.CartItemNotExistException;
+import io.hrnugr.sample.handler.exceptions.CustomException;
+import io.hrnugr.sample.handler.exceptions.ResourceNotExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,12 +24,12 @@ public class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler(value = ResourceNotExistException.class)
-    public final ResponseEntity<String> handleResourceNotExistException(ResourceNotExistException exception){
+    public final ResponseEntity<String> handleResourceNotExistException(ResourceNotExistException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = CartItemNotExistException.class)
-    public final ResponseEntity<String> handleCartItemNotExistException(CartItemNotExistException exception){
+    public final ResponseEntity<String> handleCartItemNotExistException(CartItemNotExistException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

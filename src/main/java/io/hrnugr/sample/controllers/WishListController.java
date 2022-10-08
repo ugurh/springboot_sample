@@ -6,9 +6,9 @@ import io.hrnugr.sample.dto.response.ApiResponseDto;
 import io.hrnugr.sample.entity.Product;
 import io.hrnugr.sample.entity.User;
 import io.hrnugr.sample.entity.WishList;
-import io.hrnugr.sample.exceptions.AuthFailException;
-import io.hrnugr.sample.exceptions.CustomException;
-import io.hrnugr.sample.exceptions.ResourceNotExistException;
+import io.hrnugr.sample.handler.exceptions.AuthFailException;
+import io.hrnugr.sample.handler.exceptions.CustomException;
+import io.hrnugr.sample.handler.exceptions.ResourceNotExistException;
 import io.hrnugr.sample.mapper.impl.ProductMapper;
 import io.hrnugr.sample.service.AuthTokenService;
 import io.hrnugr.sample.service.ProductService;
@@ -43,7 +43,7 @@ public class WishListController {
         User user = authTokenService.getUser(token);
         Product product = productService.getById(wishListDto.getProductId());
 
-        WishList wishList = new WishList(user, product);
+        WishList wishList = new WishList(user,product);
         wishListService.create(wishList);
 
         return new ResponseEntity<>(new ApiResponseDto(true, "Product has added to wish list."), HttpStatus.CREATED);

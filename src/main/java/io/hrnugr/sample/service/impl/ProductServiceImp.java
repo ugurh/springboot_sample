@@ -3,8 +3,8 @@ package io.hrnugr.sample.service.impl;
 import io.hrnugr.sample.dto.request.ProductDto;
 import io.hrnugr.sample.entity.Category;
 import io.hrnugr.sample.entity.Product;
-import io.hrnugr.sample.exceptions.CustomException;
-import io.hrnugr.sample.exceptions.ResourceNotExistException;
+import io.hrnugr.sample.handler.exceptions.CustomException;
+import io.hrnugr.sample.handler.exceptions.ResourceNotExistException;
 import io.hrnugr.sample.repository.ProductRepository;
 import io.hrnugr.sample.service.ProductService;
 import org.springframework.stereotype.Service;
@@ -51,8 +51,8 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public Product getById(Long id) throws ResourceNotExistException {
-        Product product = productRepository.findById(id).orElse(null);
+    public Product getById(Long productId) throws ResourceNotExistException {
+        Product product = productRepository.findById(productId).orElse(null);
 
         if (Objects.isNull(product))
             throw new ResourceNotExistException("Product does not exist");

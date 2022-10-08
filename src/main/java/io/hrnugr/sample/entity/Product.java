@@ -1,40 +1,57 @@
 package io.hrnugr.sample.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Table(name = "PRODUCTS")
-public class Product {
+@SQLDelete(sql = "UPDATE Product SET deleted = true WHERE id = ? and version = ?")
+public class Product extends BaseEntity {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CATEGORY_ID", nullable = false)
+    @ToString.Exclude
     Category category;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
+
     @Column(name = "NAME")
     @NotNull
     private String name;
+
     @Column(name = "IMAGE_URL")
     @NotNull
     private String imageURL;
+
     @Column(name = "PRICE")
     @NotNull
     private Double price;
+
     @Column(name = "DESCRIPTION")
     @NotNull
     private String description;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Product product = (Product) o;
+        return getId() != null && Objects.equals(getId(), product.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

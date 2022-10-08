@@ -1,4 +1,4 @@
-package io.hrnugr.sample.exceptions;
+package io.hrnugr.sample.handler.exceptions;
 
 public class CartItemNotExistException extends Exception {
 

@@ -2,8 +2,8 @@ package io.hrnugr.sample.service.impl;
 
 import io.hrnugr.sample.entity.AuthToken;
 import io.hrnugr.sample.entity.User;
-import io.hrnugr.sample.exceptions.AuthFailException;
-import io.hrnugr.sample.exceptions.ResourceNotExistException;
+import io.hrnugr.sample.handler.exceptions.AuthFailException;
+import io.hrnugr.sample.handler.exceptions.ResourceNotExistException;
 import io.hrnugr.sample.repository.AuthTokenRepository;
 import io.hrnugr.sample.service.AuthTokenService;
 import io.hrnugr.sample.util.Messages;

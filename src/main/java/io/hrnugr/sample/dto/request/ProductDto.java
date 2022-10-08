@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class ProductDto {
 
-    private Long id;
+    private Long productId;
     private @NotNull String name;
     private @NotNull String imageURL;
     private @NotNull Double price;
