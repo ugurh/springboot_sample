@@ -7,6 +7,9 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author harun ugur
+ */
 @Slf4j
 public class HashUtil {
     private HashUtil() {

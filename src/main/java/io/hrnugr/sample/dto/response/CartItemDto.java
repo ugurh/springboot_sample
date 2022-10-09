@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * @author harun ugur
+ */
 @AllArgsConstructor
 @Getter
 @Setter

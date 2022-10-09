@@ -7,6 +7,10 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * @author harun ugur
+ */
+
 @Entity
 @Table(name = "WISHLIST")
 @Getter
@@ -33,8 +37,12 @@ public class WishList extends BaseEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
         WishList wishList = (WishList) o;
         return getId() != null && Objects.equals(getId(), wishList.getId());
     }
@@ -44,3 +52,4 @@ public class WishList extends BaseEntity {
         return getClass().hashCode();
     }
 }
+

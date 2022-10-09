@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author harun ugur
+ */
 @Service
-public class CategoryServiceImp implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public CategoryServiceImp(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
@@ -37,10 +40,10 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public void update(Long categoryId, Category category) {
-        Category catInDB = categoryRepository.findById(categoryId).orElseThrow();
-        catInDB.setCategoryName(category.getCategoryName());
-        catInDB.setDescription(category.getDescription());
-        catInDB.setImageUrl(category.getImageUrl());
-        categoryRepository.save(catInDB);
+        Category catInDb = categoryRepository.findById(categoryId).orElseThrow();
+        catInDb.setCategoryName(category.getCategoryName());
+        catInDb.setDescription(category.getDescription());
+        catInDb.setImageUrl(category.getImageUrl());
+        categoryRepository.save(catInDb);
     }
 }

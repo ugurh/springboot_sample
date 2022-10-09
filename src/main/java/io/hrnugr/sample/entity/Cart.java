@@ -6,6 +6,9 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * @author harun ugur
+ */
 @Entity
 @Table(name = "CART")
 @Getter
@@ -28,8 +31,12 @@ public class Cart extends BaseEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
         Cart cart = (Cart) o;
         return getId() != null && Objects.equals(getId(), cart.getId());
     }

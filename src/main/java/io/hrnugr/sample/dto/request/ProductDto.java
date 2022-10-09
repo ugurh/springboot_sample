@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author harun ugur
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +18,7 @@ public class ProductDto {
 
     private Long productId;
     private @NotNull String name;
-    private @NotNull String imageURL;
+    private @NotNull String imageUrl;
     private @NotNull Double price;
     private @NotNull String description;
     private @NotNull Long categoryId;

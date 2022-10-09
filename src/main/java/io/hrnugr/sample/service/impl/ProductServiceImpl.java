@@ -13,12 +13,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * @author harun ugur
+ */
 @Service
-public class ProductServiceImp implements ProductService {
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    public ProductServiceImp(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
@@ -35,16 +38,17 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public void updateProduct(Long productId, ProductDto productDto, Category category) throws CustomException {
-        Optional<Product> productInDB = productRepository.findById(productId);
+        Optional<Product> productInDb = productRepository.findById(productId);
 
-        if (productInDB.isEmpty())
+        if (productInDb.isEmpty()) {
             throw new CustomException("Product can not exist");
+        }
 
-        Product product = productInDB.get();
+        Product product = productInDb.get();
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
         product.setDescription(productDto.getDescription());
-        product.setImageURL(productDto.getImageURL());
+        product.setImageUrl(productDto.getImageUrl());
         product.setCategory(category);
 
         productRepository.save(product);
@@ -54,8 +58,9 @@ public class ProductServiceImp implements ProductService {
     public Product getById(Long productId) throws ResourceNotExistException {
         Product product = productRepository.findById(productId).orElse(null);
 
-        if (Objects.isNull(product))
+        if (Objects.isNull(product)) {
             throw new ResourceNotExistException("Product does not exist");
+        }
 
         return product;
     }

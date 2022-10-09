@@ -10,8 +10,12 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * @author harun ugur
+ */
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class})
 @Getter
@@ -20,7 +24,8 @@ public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, insertable = false, updatable = false)
+    @NotNull
     private Long id;
 
     @CreatedDate

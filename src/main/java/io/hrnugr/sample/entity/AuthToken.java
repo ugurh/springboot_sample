@@ -3,21 +3,28 @@ package io.hrnugr.sample.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@Entity
-@Table(name = "AUTH_TOKENS")
+/**
+ * @author harun ugur
+ */
 @NoArgsConstructor
+@Entity(name = "Save user auth token")
+@Table(name = "AUTH_TOKENS")
 @Getter
 @Setter
+@ToString
 public class AuthToken extends BaseEntity {
 
     @Column(name = "TOKEN")
     private String token;
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "USER_ID")
+    @NotNull(message = "User can not be empty")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     public AuthToken(User user) {

@@ -22,6 +22,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author harun ugur
+ */
 @RestController
 @RequestMapping("/product")
 public class ProductController {

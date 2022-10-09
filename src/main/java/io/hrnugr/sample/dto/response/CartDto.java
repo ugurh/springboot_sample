@@ -8,6 +8,9 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * @author harunu ugur
+ */
 @AllArgsConstructor
 @Getter
 @Setter

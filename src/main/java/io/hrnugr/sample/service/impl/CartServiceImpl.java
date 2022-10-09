@@ -17,13 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author harun ugur
+ */
 @Service
-public class CartServiceImp implements CartService {
+public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
     private final ProductMapper productMapper;
 
-    public CartServiceImp(CartRepository cartRepository, ProductMapper productMapper) {
+    public CartServiceImpl(CartRepository cartRepository, ProductMapper productMapper) {
         this.cartRepository = cartRepository;
         this.productMapper = productMapper;
     }

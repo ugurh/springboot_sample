@@ -9,6 +9,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author harun ugur
+ */
 @Configuration
 public class CategoryMapper implements BaseMapper {
 
@@ -46,8 +49,9 @@ public class CategoryMapper implements BaseMapper {
 
     @Override
     public List<CategoryDto> toListDto(List list) {
-        if (list.isEmpty())
+        if (list.isEmpty()) {
             return Collections.emptyList();
+        }
 
         return list.stream().map(this::toDto).toList();
     }

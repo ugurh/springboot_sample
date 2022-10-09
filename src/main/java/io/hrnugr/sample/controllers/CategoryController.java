@@ -18,6 +18,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author harun ugur
+ */
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -43,9 +46,9 @@ public class CategoryController {
 
         Category category = categoryMapper.toEntity(categoryDto);
 
-        Category categoryInDB = categoryService.readCategory(category.getCategoryName());
+        Category categoryInDb = categoryService.readCategory(category.getCategoryName());
 
-        if (Objects.nonNull(categoryInDB)) {
+        if (Objects.nonNull(categoryInDb)) {
             return new ResponseEntity<>(new ApiResponseDto(false, "category already exists"), HttpStatus.CONFLICT);
         }
 
@@ -72,8 +75,9 @@ public class CategoryController {
     @PostMapping("/update/{categoryId}")
     public ResponseEntity<ApiResponseDto> update(@PathVariable("categoryId") Long categoryId, @Valid @RequestBody CategoryDto categoryDto) {
 
-        if (Objects.isNull(categoryService.get(categoryId)))
+        if (Objects.isNull(categoryService.get(categoryId))) {
             return new ResponseEntity<>(new ApiResponseDto(false, "category does not exist"), HttpStatus.NOT_FOUND);
+        }
 
         Category category = categoryMapper.toEntity(categoryDto);
         categoryService.update(categoryId, category);

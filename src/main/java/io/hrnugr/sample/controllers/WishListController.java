@@ -21,6 +21,9 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author harun ugur
+ */
 @RestController
 @RequestMapping("/wishlist")
 public class WishListController {
@@ -43,7 +46,7 @@ public class WishListController {
         User user = authTokenService.getUser(token);
         Product product = productService.getById(wishListDto.getProductId());
 
-        WishList wishList = new WishList(user,product);
+        WishList wishList = new WishList(user, product);
         wishListService.create(wishList);
 
         return new ResponseEntity<>(new ApiResponseDto(true, "Product has added to wish list."), HttpStatus.CREATED);

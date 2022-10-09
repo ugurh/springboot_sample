@@ -18,14 +18,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * @author harun ugur
+ */
 @Service
 @Slf4j
-public class UserServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final AuthTokenService authTokenService;
 
-    public UserServiceImp(UserRepository userRepository, AuthTokenService authTokenService) {
+    public UserServiceImpl(UserRepository userRepository, AuthTokenService authTokenService) {
         this.userRepository = userRepository;
         this.authTokenService = authTokenService;
     }
@@ -61,8 +64,9 @@ public class UserServiceImp implements UserService {
     public SignInResponseDto signIn(SignInDto signInDto) throws CustomException, AuthFailException {
         User user = userRepository.findByEmail(signInDto.getEmail());
 
-        if (Objects.isNull(user))
+        if (Objects.isNull(user)) {
             throw new CustomException(Messages.USER_NOT_PRESENT);
+        }
 
         String encryptedPassword = HashUtil.encryptedPassword(signInDto.getPassword());
         if (!user.getPassword().equals(encryptedPassword)) {

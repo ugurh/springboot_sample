@@ -5,9 +5,11 @@ import io.hrnugr.sample.entity.Category;
 
 import java.util.List;
 
+/**
+ * @author harun ugur
+ */
 public interface CategoryService {
     Category readCategory(String categoryName);
-
 
     void createCategory(Category category);
 

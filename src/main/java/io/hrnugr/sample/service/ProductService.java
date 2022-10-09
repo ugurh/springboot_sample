@@ -8,6 +8,9 @@ import io.hrnugr.sample.handler.exceptions.ResourceNotExistException;
 
 import java.util.List;
 
+/**
+ * @author harun ugur
+ */
 public interface ProductService {
     void create(Product product, Category category);
 

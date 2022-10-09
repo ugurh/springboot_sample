@@ -1,7 +1,9 @@
 package io.hrnugr.sample.util;
 
+/**
+ * @author harun ugur
+ */
 public class Messages {
-
     public static final String AUTH_TOKEN_NOT_PRESENT = "Authentication token not present";
     public static final String AUTH_TOKEN_NOT_VALID = "Authentication token not valid";
     public static final String AUTH_USER_NOT_PRESENT = "Authentication user not present";

@@ -9,6 +9,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author harun ugur
+ */
 @Configuration
 public class ProductMapper implements BaseMapper {
     @Override
@@ -23,7 +26,7 @@ public class ProductMapper implements BaseMapper {
                 .productId(model.getId())
                 .name(model.getName())
                 .description(model.getDescription())
-                .imageURL(model.getImageURL())
+                .imageUrl(model.getImageUrl())
                 .price(model.getPrice())
                 .categoryId(model.getCategory().getId())
                 .build();
@@ -41,7 +44,7 @@ public class ProductMapper implements BaseMapper {
         product.setId(dto.getProductId());
         product.setName(dto.getName());
         product.setDescription(dto.getDescription());
-        product.setImageURL(dto.getImageURL());
+        product.setImageUrl(dto.getImageUrl());
         product.setPrice(dto.getPrice());
 
         return product;
@@ -49,8 +52,9 @@ public class ProductMapper implements BaseMapper {
 
     @Override
     public List<ProductDto> toListDto(List list) {
-        if (list.isEmpty())
+        if (list.isEmpty()) {
             return Collections.emptyList();
+        }
 
         return list.stream().map(this::toDto).toList();
     }

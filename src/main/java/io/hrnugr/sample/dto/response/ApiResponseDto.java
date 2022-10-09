@@ -4,6 +4,9 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author harun ugur
+ */
 @Getter
 public class ApiResponseDto {
 

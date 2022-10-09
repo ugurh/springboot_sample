@@ -11,12 +11,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * @author harun ugur
+ */
 @Service
-public class AuthServiceImp implements AuthTokenService {
+public class AuthServiceImpl implements AuthTokenService {
 
     private final AuthTokenRepository authTokenRepository;
 
-    public AuthServiceImp(AuthTokenRepository authTokenRepository) {
+    public AuthServiceImpl(AuthTokenRepository authTokenRepository) {
         this.authTokenRepository = authTokenRepository;
     }
 
@@ -34,11 +37,13 @@ public class AuthServiceImp implements AuthTokenService {
     public User getUser(String token) throws AuthFailException, ResourceNotExistException {
         AuthToken authToken = authTokenRepository.findAuthTokenByToken(token);
 
-        if (Objects.isNull(authToken))
+        if (Objects.isNull(authToken)) {
             throw new AuthFailException(Messages.AUTH_TOKEN_NOT_PRESENT);
+        }
 
-        if (Objects.isNull(authToken.getUser()))
+        if (Objects.isNull(authToken.getUser())) {
             throw new ResourceNotExistException(Messages.AUTH_USER_NOT_PRESENT);
+        }
 
         return authToken.getUser();
     }
@@ -46,13 +51,15 @@ public class AuthServiceImp implements AuthTokenService {
     @Override
     public void authenticate(String token) throws AuthFailException {
 
-        if (Objects.isNull(token))
+        if (Objects.isNull(token)) {
             throw new AuthFailException(Messages.EMPTY_AUTH_TOKEN);
+        }
 
         AuthToken authToken = authTokenRepository.findAuthTokenByToken(token);
 
-        if (Objects.isNull(authToken))
+        if (Objects.isNull(authToken)) {
             throw new AuthFailException(Messages.AUTH_TOKEN_NOT_PRESENT);
+        }
 
     }
 }

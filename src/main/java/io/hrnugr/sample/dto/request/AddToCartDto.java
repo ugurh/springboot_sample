@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author harun ugur
+ */
 @AllArgsConstructor
 @Builder
 @Getter
