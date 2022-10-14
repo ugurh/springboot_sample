@@ -1,6 +1,8 @@
 server:
   port: 8081
-
+  error:
+    whitelabel:
+      enabled: false
 spring:
   datasource:
     username: sa
@@ -16,7 +18,15 @@ spring:
       enabled: true
   main:
     allow-bean-definition-overriding: true
+  profiles:
+    active: prod
+
+  config:
+    use-legacy-processing: true
 
 springdoc:
   swagger-ui:
     operationsSorter: method
+
+
+
