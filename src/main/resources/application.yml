@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8090
   error:
     whitelabel:
       enabled: false
@@ -9,17 +9,23 @@ spring:
     password:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
+  jackson:
+    date-format: "dd-MM-yyyy hh:mm:ss"
   jpa:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        jdbc:
+          fetch_size: 25
   h2:
     console:
       enabled: true
   main:
     allow-bean-definition-overriding: true
   profiles:
-    active: prod
+    active: dev
 
   config:
     use-legacy-processing: true
@@ -27,6 +33,4 @@ spring:
 springdoc:
   swagger-ui:
     operationsSorter: method
-
-
 
