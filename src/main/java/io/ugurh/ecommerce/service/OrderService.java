@@ -1,6 +1,9 @@
 package io.ugurh.ecommerce.service;
 
+import io.ugurh.ecommerce.model.entity.Order;
 import io.ugurh.ecommerce.model.entity.User;
+
+import java.util.List;
 
 /**
  * @author harun ugur
@@ -14,4 +17,6 @@ public interface OrderService {
      * @param sessionId session id
      */
     void placeOrder(User user, String sessionId);
+
+    List<Order> listOrders(User user);
 }

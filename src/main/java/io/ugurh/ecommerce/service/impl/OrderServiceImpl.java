@@ -1,6 +1,7 @@
 package io.ugurh.ecommerce.service.impl;
 
 import io.ugurh.ecommerce.mapper.impl.ProductMapper;
+import io.ugurh.ecommerce.model.entity.Order;
 import io.ugurh.ecommerce.model.entity.User;
 import io.ugurh.ecommerce.repository.OrderItemRepository;
 import io.ugurh.ecommerce.repository.OrderRepository;
@@ -8,11 +9,15 @@ import io.ugurh.ecommerce.service.CartService;
 import io.ugurh.ecommerce.service.OrderService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 /**
  * @author harun ugur
  * @created 10.10.2022 - 21:03
  */
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
     private final CartService cartService;
@@ -54,5 +59,10 @@ public class OrderServiceImpl implements OrderService {
         }
 
          */
+    }
+
+    @Override
+    public List<Order> listOrders(User user) {
+        return orderRepository.findAllByUserOrderByCreatedDateDesc(user);
     }
 }

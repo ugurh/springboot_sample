@@ -4,15 +4,17 @@ import io.ugurh.ecommerce.handler.exceptions.AuthFailException;
 import io.ugurh.ecommerce.handler.exceptions.CustomException;
 import io.ugurh.ecommerce.handler.exceptions.ResourceNotFoundException;
 import io.ugurh.ecommerce.model.dto.response.ApiResponseDto;
+import io.ugurh.ecommerce.model.entity.Order;
 import io.ugurh.ecommerce.model.entity.User;
+import io.ugurh.ecommerce.model.response.ECommerceApiResponse;
+import io.ugurh.ecommerce.model.response.ResponseBuilder;
 import io.ugurh.ecommerce.service.AuthTokenService;
 import io.ugurh.ecommerce.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author harun ugur
@@ -37,5 +39,14 @@ public class OrderController {
         User user = authTokenService.getUser(token);
         orderService.placeOrder(user, sessionId);
         return new ResponseEntity<>(new ApiResponseDto(true, "Order has been placed"), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<ECommerceApiResponse> getAllOrders(@RequestParam("token") String token) throws AuthFailException, CustomException {
+        authTokenService.authenticate(token);
+        User user = authTokenService.getUser(token);
+        List<Order> body = orderService.listOrders(user);
+
+        return new ResponseBuilder().buildResponse(HttpStatus.OK.value(), "Get all orders", body);
     }
 }
