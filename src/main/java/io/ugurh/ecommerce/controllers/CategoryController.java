@@ -1,5 +1,10 @@
 package io.ugurh.ecommerce.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.ugurh.ecommerce.mapper.impl.CategoryMapper;
 import io.ugurh.ecommerce.model.dto.request.CategoryDto;
 import io.ugurh.ecommerce.model.dto.response.ApiResponseDto;
@@ -7,11 +12,6 @@ import io.ugurh.ecommerce.model.entity.Category;
 import io.ugurh.ecommerce.model.response.ECommerceApiResponse;
 import io.ugurh.ecommerce.model.response.ResponseBuilder;
 import io.ugurh.ecommerce.service.CategoryService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -88,5 +88,11 @@ public class CategoryController {
         categoryService.update(categoryId, category);
 
         return new ResponseEntity<>(new ApiResponseDto(true, "updated the category"), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{categoryId}")
+    public ResponseEntity<ApiResponseDto> update(@PathVariable("categoryId") Long categoryId) {
+        categoryService.delete(categoryId);
+        return new ResponseEntity<>(new ApiResponseDto(true, "deleted the category"), HttpStatus.OK);
     }
 }

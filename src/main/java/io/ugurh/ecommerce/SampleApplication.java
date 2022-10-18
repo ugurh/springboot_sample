@@ -3,7 +3,6 @@ package io.ugurh.ecommerce;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.ApplicationPidFileWriter;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * @author harun ugur

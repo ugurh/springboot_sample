@@ -1,11 +1,13 @@
 package io.ugurh.ecommerce.service.impl;
 
+import io.ugurh.ecommerce.handler.exceptions.ResourceNotFoundException;
 import io.ugurh.ecommerce.model.entity.Category;
 import io.ugurh.ecommerce.repository.CategoryRepository;
 import io.ugurh.ecommerce.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author harun ugur
@@ -45,5 +47,16 @@ public class CategoryServiceImpl implements CategoryService {
         catInDb.setDescription(category.getDescription());
         catInDb.setImageUrl(category.getImageUrl());
         categoryRepository.save(catInDb);
+    }
+
+    @Override
+    public void delete(Long categoryId) {
+        Category category = get(categoryId);
+
+        if (Objects.isNull(category)) {
+            throw new ResourceNotFoundException("category does not exist");
+        }
+
+        categoryRepository.deleteCategory(categoryId);
     }
 }

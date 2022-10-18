@@ -19,6 +19,7 @@ spring:
       hibernate:
         jdbc:
           fetch_size: 25
+        format_sql: true
   h2:
     console:
       enabled: true
@@ -34,3 +35,7 @@ springdoc:
   swagger-ui:
     operationsSorter: method
 
+logging:
+  level:
+    org.springframework.*: debug
+    sql: debug

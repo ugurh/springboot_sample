@@ -3,6 +3,7 @@ package io.ugurh.ecommerce.model.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ import java.util.Objects;
 @Table(name = "CATEGORIES")
 @AllArgsConstructor
 @Builder
+@Where(clause = "deleted=false")
 public class Category extends BaseEntity implements Serializable {
 
     @Column(name = "CATEGORY_NAME")
