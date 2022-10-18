@@ -20,10 +20,10 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-@Table(name = "CATEGORIES")
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Builder
+@Table(name = "CATEGORIES")
 @Where(clause = "deleted=false")
 public class Category extends BaseEntity implements Serializable {
 

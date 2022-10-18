@@ -49,4 +49,12 @@ public class OrderController {
 
         return new ResponseBuilder().buildResponse(HttpStatus.OK.value(), "Get all orders", body);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ECommerceApiResponse> getOrderById(@PathVariable("id") Long id, @RequestParam("token") String token) throws AuthFailException, CustomException {
+        authTokenService.authenticate(token);
+        User user = authTokenService.getUser(token);
+        Order order = orderService.getOrder(id, user);
+        return new ResponseBuilder().buildResponse(HttpStatus.OK.value(), "Get order", order);
+    }
 }

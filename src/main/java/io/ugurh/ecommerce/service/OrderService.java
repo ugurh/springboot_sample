@@ -19,4 +19,7 @@ public interface OrderService {
     void placeOrder(User user, String sessionId);
 
     List<Order> listOrders(User user);
+
+    Order getOrder(Long id, User user);
+
 }

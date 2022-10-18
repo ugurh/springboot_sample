@@ -1,5 +1,6 @@
 package io.ugurh.ecommerce.service.impl;
 
+import io.ugurh.ecommerce.handler.exceptions.ResourceNotFoundException;
 import io.ugurh.ecommerce.mapper.impl.ProductMapper;
 import io.ugurh.ecommerce.model.entity.Order;
 import io.ugurh.ecommerce.model.entity.User;
@@ -11,13 +12,14 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author harun ugur
  * @created 10.10.2022 - 21:03
  */
 @Service
-@Transactional
+@Transactional(rollbackOn = Exception.class)
 public class OrderServiceImpl implements OrderService {
 
     private final CartService cartService;
@@ -64,5 +66,23 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> listOrders(User user) {
         return orderRepository.findAllByUserOrderByCreatedDateDesc(user);
+    }
+
+    @Override
+    public Order getOrder(Long orderId, User user) throws ResourceNotFoundException {
+
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+        if (optionalOrder.isEmpty()) {
+            throw new ResourceNotFoundException("order id is not valid");
+        }
+
+        Order order = optionalOrder.get();
+
+        if (order.getUser() != user) {
+            throw new ResourceNotFoundException("order does not belong to user");
+        }
+
+        return order;
     }
 }
