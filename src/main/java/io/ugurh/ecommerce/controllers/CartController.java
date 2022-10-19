@@ -6,7 +6,7 @@ import io.ugurh.ecommerce.handler.exceptions.CustomException;
 import io.ugurh.ecommerce.handler.exceptions.ResourceNotFoundException;
 import io.ugurh.ecommerce.model.dto.request.AddToCartDto;
 import io.ugurh.ecommerce.model.dto.response.ApiResponseDto;
-import io.ugurh.ecommerce.model.entity.Cart;
+import io.ugurh.ecommerce.model.dto.response.CartDto;
 import io.ugurh.ecommerce.model.entity.Product;
 import io.ugurh.ecommerce.model.entity.User;
 import io.ugurh.ecommerce.service.AuthTokenService;
@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author harun ugur
@@ -51,14 +50,14 @@ public class CartController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<Cart>> getCartItems(@RequestParam("token") String token) throws AuthFailException, CustomException, ResourceNotFoundException {
+    public ResponseEntity<CartDto> getCartItems(@RequestParam("token") String token) throws AuthFailException, CustomException, ResourceNotFoundException {
         authTokenService.authenticate(token);
 
         User user = authTokenService.getUser(token);
 
-        List<Cart> listCartItems = cartService.listCartItems(user);
+        CartDto cartDto = cartService.listCartItems(user);
 
-        return new ResponseEntity<>(listCartItems, HttpStatus.OK);
+        return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{cartItemId}")

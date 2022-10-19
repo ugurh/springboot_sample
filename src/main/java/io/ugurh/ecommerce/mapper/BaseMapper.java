@@ -2,8 +2,6 @@ package io.ugurh.ecommerce.mapper;
 
 import org.mapstruct.Mapper;
 
-import java.util.List;
-
 /**
  * @author harun ugur
  */
@@ -25,11 +23,4 @@ public interface BaseMapper {
      */
     Object toEntity(Object obj);
 
-    /**
-     * mapping entities to data transfer objects
-     *
-     * @param list entities
-     * @return Object
-     */
-    List<Object> toListDto(List<Object> list);
 }

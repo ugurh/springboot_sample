@@ -20,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,10 +64,10 @@ public class CategoryController {
 
     @GetMapping("/list")
     public ResponseEntity<ECommerceApiResponse> getCategories() {
+        List<CategoryDto> categoryDtos = new ArrayList<>();
         List<Category> categories = categoryService.listCategories();
-
-        List<CategoryDto> body = categoryMapper.toListDto(categories);
-        return new ResponseBuilder().buildResponse(HttpStatus.OK.value(), "Get all categories", body);
+        categories.forEach(category -> categoryDtos.add(categoryMapper.toDto(category)));
+        return new ResponseBuilder().buildResponse(HttpStatus.OK.value(), "Get all categories", categoryDtos);
     }
 
     @Operation(summary = "Update category")

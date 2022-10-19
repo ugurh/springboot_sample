@@ -33,19 +33,20 @@ public class OrderItem extends BaseEntity implements Serializable {
     @Column(name = "QUANTITY", nullable = false)
     private @NotNull int quantity;
 
+    @NotNull
     @PositiveOrZero
     @Column(name = "PRICE", nullable = false, precision = 18, scale = 2)
     @NumberFormat(pattern = "#,###,###,###.##", style = NumberFormat.Style.CURRENCY)
-    private @NotNull BigDecimal price;
+    private BigDecimal price;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "product_id")
     @NotNull
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product product;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "ORDER_ID", referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ORDER_ID", nullable = false)
     private Order order;
 
     @Override

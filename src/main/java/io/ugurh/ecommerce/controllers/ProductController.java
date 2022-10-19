@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,9 +64,11 @@ public class ProductController {
 
     @GetMapping("/list")
     public ResponseEntity<List<ProductDto>> getProducts() {
+        List<ProductDto> dtoList = new ArrayList<>();
         List<Product> products = productService.listProducts();
-        List<ProductDto> body = productMapper.toListDto(products);
-        return new ResponseEntity<>(body, HttpStatus.OK);
+        products.forEach(product -> dtoList.add(productMapper.toDto(product)));
+
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
     @PostMapping("/update/{productId}")

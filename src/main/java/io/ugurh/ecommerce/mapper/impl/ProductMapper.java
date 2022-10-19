@@ -3,10 +3,9 @@ package io.ugurh.ecommerce.mapper.impl;
 import io.ugurh.ecommerce.mapper.BaseMapper;
 import io.ugurh.ecommerce.model.dto.request.ProductDto;
 import io.ugurh.ecommerce.model.entity.Product;
+import io.ugurh.ecommerce.repository.CategoryRepository;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,6 +13,13 @@ import java.util.Objects;
  */
 @Configuration
 public class ProductMapper implements BaseMapper {
+
+    private final CategoryRepository categoryRepository;
+
+    public ProductMapper(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
     @Override
     public ProductDto toDto(Object obj) {
 
@@ -46,16 +52,8 @@ public class ProductMapper implements BaseMapper {
         product.setDescription(dto.getDescription());
         product.setImageUrl(dto.getImageUrl());
         product.setPrice(dto.getPrice());
+        product.setCategory(categoryRepository.getById(dto.getCategoryId()));
 
         return product;
-    }
-
-    @Override
-    public List<ProductDto> toListDto(List list) {
-        if (list.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        return list.stream().map(this::toDto).toList();
     }
 }

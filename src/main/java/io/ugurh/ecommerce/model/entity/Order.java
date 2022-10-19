@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -39,11 +38,13 @@ public class Order extends BaseEntity implements Serializable {
     @JoinColumn(name = "USER_ID", referencedColumnName = "id")
     private User user;
 
+    /*
     @NotNull
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("createdDate DESC")
     @ToString.Exclude
     private List<OrderItem> orderItems;
+    */
 
     @PositiveOrZero
     @NotNull

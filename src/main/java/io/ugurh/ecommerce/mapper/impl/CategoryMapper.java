@@ -5,8 +5,6 @@ import io.ugurh.ecommerce.model.dto.request.CategoryDto;
 import io.ugurh.ecommerce.model.entity.Category;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,15 +43,6 @@ public class CategoryMapper implements BaseMapper {
                 .description(dto.getDescription())
                 .imageUrl(dto.getImageUrl())
                 .build();
-    }
-
-    @Override
-    public List<CategoryDto> toListDto(List list) {
-        if (list.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        return list.stream().map(this::toDto).toList();
     }
 
 }

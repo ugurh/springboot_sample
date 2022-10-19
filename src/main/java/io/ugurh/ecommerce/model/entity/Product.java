@@ -30,7 +30,7 @@ public class Product extends BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = -1556092394676807791L;
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "CATEGORY_ID", nullable = false)
     Category category;
     @Column(name = "NAME")

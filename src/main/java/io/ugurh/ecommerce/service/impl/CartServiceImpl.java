@@ -3,6 +3,7 @@ package io.ugurh.ecommerce.service.impl;
 import io.ugurh.ecommerce.handler.exceptions.ResourceNotFoundException;
 import io.ugurh.ecommerce.mapper.impl.ProductMapper;
 import io.ugurh.ecommerce.model.dto.request.AddToCartDto;
+import io.ugurh.ecommerce.model.dto.response.CartDto;
 import io.ugurh.ecommerce.model.dto.response.CartItemDto;
 import io.ugurh.ecommerce.model.entity.Cart;
 import io.ugurh.ecommerce.model.entity.Product;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +44,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<Cart> listCartItems(User user) {
+    public CartDto listCartItems(User user) {
         List<Cart> carts = cartRepository.findAllByUserOrderByCreatedDateDesc(user);
 
         List<CartItemDto> cartItems = new ArrayList<>();
@@ -61,7 +61,10 @@ public class CartServiceImpl implements CartService {
             cartItems.add(cartItemDto);
         }
 
-        return Collections.emptyList();
+        return CartDto.builder()
+                .totalPrice(totalPrice)
+                .cartItems(cartItems)
+                .build();
     }
 
     @Override

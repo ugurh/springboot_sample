@@ -15,5 +15,4 @@ import javax.validation.constraints.NotNull;
 public class WishListDto {
     private @NotNull Long userId;
     private @NotNull Long productId;
-    private @NotNull String authToken;
 }

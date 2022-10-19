@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class AddToCartDto {
-    private @NotNull Long id;
+    private Long id;
     private @NotNull Long productId;
     private @NotNull Integer quantity;
 }
